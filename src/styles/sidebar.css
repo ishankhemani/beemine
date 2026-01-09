@@ -1,0 +1,148 @@
+/* ===============================
+   SIDEBAR
+================================ */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  color: #e5e7eb;
+  padding: 20px 16px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.22);
+}
+
+/* ===============================
+   LOGO
+================================ */
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+  padding: 0 12px;
+  color: #ffffff;
+}
+
+/* ===============================
+   NAV LINKS CONTAINER
+================================ */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  padding-bottom: 80px;  /* ✅ space so links don't hit logout */
+}
+
+/* ===============================
+   NAV LINKS
+================================ */
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: #cbd5f5;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.nav-link.active {
+  background: linear-gradient(90deg, #1e40af 0%, #1d4ed8 100%);
+  color: #ffffff;
+}
+
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: #60a5fa;
+  border-radius: 4px;
+}
+
+/* ===============================
+   LOGOUT (PINNED TO BOTTOM)
+================================ */
+.logout {
+  position: absolute;
+  bottom: 0;              /* 🔥 bottom zero */
+  left: 0;
+  width: 100%;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f87171;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.4),
+    rgba(2, 6, 23, 0.9)
+  );
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.logout:hover {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fecaca;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 72px;
+    min-width: 72px;
+    padding: 16px 8px;
+  }
+
+  .logo {
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
+  .nav-link.active::before {
+    left: -8px;
+  }
+
+  .logout {
+    font-size: 13px;
+    padding: 12px 8px;
+  }
+}

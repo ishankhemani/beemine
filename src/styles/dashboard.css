@@ -1,0 +1,213 @@
+/* ===============================
+   BASE
+================================ */
+.dashboard {
+  padding: 20px;
+  background: #f5f7fb;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #111827;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Actions */
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.date-btn,
+.download-btn {
+  font-size: 13px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.date-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0 14px;
+  border-radius: 8px;
+  color: #111827;
+}
+
+.download-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ===============================
+   STATS GRID
+================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+/* Card */
+.stat-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.05),
+    0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card span {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.stat-card h2 {
+  margin-top: 12px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-card.danger span {
+  color: #ef4444;
+}
+
+/* ===============================
+   DASHBOARD GRAPHS (NO OVERFLOW)
+================================ */
+.dashboard-graphs {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+/* Graph Card */
+.graph-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 10px 24px rgba(0, 0, 0, 0.08);
+
+  /* 🔑 CRITICAL */
+  height: 360px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Large graph */
+.graph-card.large {
+  height: 380px;
+}
+
+/* Header */
+.graph-header {
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.graph-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.graph-header p {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Graph body */
+.graph-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;           /* 🔥 prevents overflow */
+}
+
+/* Chart.js canvas FIX */
+.graph-body canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+/* Medium laptops */
+@media (max-width: 1200px) {
+  .dashboard-graphs {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-card,
+  .graph-card.large {
+    height: 340px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .graph-card,
+  .graph-card.large {
+    height: 300px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .graph-card,
+  .graph-card.large {
+    height: 260px;
+  }
+}
