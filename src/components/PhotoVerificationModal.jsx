@@ -1,4 +1,3 @@
-import "../styles/photoVerification.css";
 
 export default function PhotoVerificationModal({
   data,
@@ -46,7 +45,8 @@ export default function PhotoVerificationModal({
             onClick={() =>
               onSubmit(data.photo_id, "reject")
             }
-          >
+          >import "../styles/photoVerification.css";
+
             Reject
           </button>
 
