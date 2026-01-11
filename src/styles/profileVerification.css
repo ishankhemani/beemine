@@ -267,3 +267,212 @@
     padding: 16px;
   }
 }
+/* ===============================
+   MODAL BACKDROP (FIXED Z-INDEX)
+================================ */
+.pv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 18px;
+}
+
+/* ===============================
+   MODAL (SCROLL SAFE)
+================================ */
+.pv-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 880px;
+  max-height: 85vh;              /* ✅ laptop height */
+  overflow-y: auto;              /* ✅ vertical scroll */
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+  position: relative;
+}
+
+/* ===============================
+   MODAL HEADER
+================================ */
+.pv-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 5;
+}
+
+.pv-modal-header h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.pv-modal-header button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+}
+
+/* ===============================
+   IMAGES (CLICKABLE)
+================================ */
+.pv-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.pv-images img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 6px;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pv-images img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.25);
+}
+
+.pv-image-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999; /* MUST be higher than modal/backdrop */
+  cursor: zoom-out;
+  padding: 16px;
+}
+
+.pv-image-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  padding: 12px;
+}
+
+
+/* ===============================
+   RESPONSIVE (LAPTOP)
+================================ */
+@media (max-width: 1024px) {
+  .pv-modal {
+    max-width: 96%;
+    max-height: 90vh;
+  }
+
+  .pv-images img {
+    height: 200px;
+  }
+}
+
+/* ===============================
+   RESPONSIVE (MOBILE)
+================================ */
+@media (max-width: 768px) {
+  .pv-images,
+  .pv-info,
+  .pv-ratings {
+    grid-template-columns: 1fr;
+  }}
+
+  .pv-images img {
+    height: auto;
+    max-height: 260px;
+  }
+* 
+   /* ======================
+   PROFILE VERIFICATION PAGE
+====================== */
+.profile-verification {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  color: #0f172a;
+}
+
+/* Grid of verification cards grows naturally */
+.pv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  flex-grow: 1; /* allows grid to expand and push pagination down */
+}
+
+/* ======================
+   PROFILE VERIFICATION GRID
+====================== */
+.pv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 0; /* remove extra bottom margin if any */
+}
+
+/* ======================
+   SIMPLE PAGINATION BUTTONS
+====================== */
+.pv-pagination {
+  display: flex;
+  justify-content: center;        /* center buttons horizontally */
+  align-items: center;            /* vertically center text inside buttons */
+  gap: 10px;                      /* space between buttons */
+  margin-top: 12px;               /* space right below the grid */
+  padding: 8px 0;                 /* optional padding */
+  background-color: transparent;  /* no extra background */
+}
+
+/* BUTTONS */
+.pv-pagination button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #f0f1f7;
+  color: #0f172a;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* hover effect for enabled buttons */
+.pv-pagination button:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+/* disabled buttons */
+.pv-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* PAGE NUMBER TEXT */
+.pv-pagination span {
+  font-weight: 500;
+  color: #0f172a;
+}

@@ -28,17 +28,21 @@ export default function Dashboard() {
     setLoading(true);
     getDashboardStats()
       .then((res) => {
-        const d = res.data;
+        const d = res.data; // ✅ unchanged (as in your original code)
 
         setStats({
-          total_users: d.users?.total_active ?? 0,
-          total_men: d.users?.men ?? 0,
-          total_women: d.users?.women ?? 0,
-          daily_active_users: d.active_users?.daily ?? 0,
-          pending_verifications: d.verification?.pending_profiles ?? 0,
-          total_reports: d.reports?.pending ?? 0,
-          total_revenue: d.revenue?.platform_85_percent ?? 0,
-        });
+  total_users: d.users?.total_active ?? 0,
+  total_men: d.users?.men ?? 0,
+  total_women: d.users?.women ?? 0,
+
+  // ✅ CORRECT paths
+  daily_active_users: d.active_users?.daily ?? 0,
+  total_topup_amount: d.revenue?.total_topup ?? 0,
+
+  pending_verifications: d.verification?.pending_profiles ?? 0,
+  total_reports: d.reports?.pending ?? 0,
+  total_revenue: d.revenue?.platform_85_percent ?? 0,
+});
 
         setRawGraph({
           labels: d.revenue?.graph?.labels || [],
@@ -63,10 +67,7 @@ export default function Dashboard() {
     const filtered = rawGraph.labels.reduce(
       (acc, label, index) => {
         const current = new Date(label);
-        if (
-          (!from || current >= from) &&
-          (!to || current <= to)
-        ) {
+        if ((!from || current >= from) && (!to || current <= to)) {
           acc.labels.push(label);
           acc.values.push(rawGraph.values[index]);
         }
@@ -95,7 +96,7 @@ export default function Dashboard() {
         padding: 10,
         displayColors: false,
         callbacks: {
-          label: (ctx) => ` ₹${ctx.raw}`,
+          label: (ctx) => `₹${ctx.raw}`,
         },
       },
     },
@@ -136,7 +137,6 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* DATE RANGE FILTER */}
         <div className="dashboard-actions">
           <input
             type="date"
@@ -164,6 +164,10 @@ export default function Dashboard() {
         />
         <Stat title="Total Reports" value={stats.total_reports} />
         <Stat title="Total Revenue" value={`₹${stats.total_revenue}`} />
+        <Stat
+          title="Total Topup Amount"
+          value={`₹${stats.total_topup_amount}`}
+        />
       </div>
 
       <div className="dashboard-graphs">

@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 /* ===============================
-   PAGE (ADMIN LAYOUT)
+   PAGE
 ================================ */
 .reviews-page {
   width: 100%;
@@ -19,7 +21,7 @@
 }
 
 /* ===============================
-   REVIEW CARD (PREMIUM)
+   REVIEW CARD
 ================================ */
 .review-card {
   background: #ffffff;
@@ -32,11 +34,10 @@
   flex-direction: column;
   gap: 14px;
   max-width: 920px;
+  word-break: break-word;
 }
 
-/* ===============================
-   HEADER
-================================ */
+/* HEADER */
 .review-header {
   display: flex;
   justify-content: space-between;
@@ -52,12 +53,17 @@
 
 .username {
   font-size: 16px;
-  font-weight: 700px;
+  font-weight: 700;
   color: #020617;
   margin: 0;
+  cursor: pointer;
 }
 
-/* STATUS PILL */
+.username:hover {
+  text-decoration: underline;
+}
+
+/* STATUS */
 .status {
   display: inline-flex;
   align-items: center;
@@ -83,12 +89,11 @@
   color: #991b1b;
 }
 
-/* ===============================
-   ACTION BUTTONS
-================================ */
+/* ACTION BUTTONS */
 .review-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -124,9 +129,9 @@
 ================================ */
 .review-body {
   display: flex;
-  justify-content: space-between;
   gap: 22px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .review-text {
@@ -142,9 +147,7 @@
   font-size: 13px;
 }
 
-/* ===============================
-   IMAGE
-================================ */
+/* IMAGE THUMBNAIL */
 .image-wrapper {
   flex-shrink: 0;
 }
@@ -164,9 +167,7 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* ===============================
-   FOOTER
-================================ */
+/* FOOTER */
 .review-footer {
   font-size: 12px;
   color: #64748b;
@@ -174,28 +175,108 @@
 }
 
 /* ===============================
-   IMAGE MODAL
+   IMAGE MODAL (LIGHTBOX) – FIXED
 ================================ */
-.image-modal {
+/* ===============================
+   IMAGE LIGHTBOX (ABOVE MODAL)
+================================ */
+.image-model{
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;                 /* 🔥 FIX */
 }
 
-.image-modal img {
+.pv-image-lightbox img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 16px;
+  object-fit: contain;
   background: #ffffff;
-  padding: 10px;
+  padding: 12px;
+  border-radius: 16px;
 }
 
 /* ===============================
-   RESPONSIVE
+   PROFILE MODAL
+================================ */
+.user-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  z-index: 3000;
+
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.user-modal {
+  position: relative;
+  z-index: 3100;
+
+  max-height: 90vh;
+  width: 460px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  overflow-y: auto;
+}
+
+.user-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.user-modal .modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.user-modal .modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+}
+
+.user-modal .modal-grid div b {
+  font-weight: 600;
+}
+
+/* PHOTOS GRID */
+.photos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.photos-grid img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: zoom-in;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease;
+}
+
+.photos-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* ===============================
+   RESPONSIVE – LAPTOP & BELOW
 ================================ */
 @media (max-width: 1024px) {
   .review-card {
@@ -204,6 +285,7 @@
 
   .review-body {
     flex-direction: column;
+    gap: 16px;
   }
 
   .review-thumbnail {
@@ -211,4 +293,103 @@
     height: auto;
     max-height: 220px;
   }
+
+  .image-modal img {
+    max-width: 94vw;
+    max-height: 88vh;
+  }
+
+  .user-modal {
+    width: 92%;
+    padding: 16px;
+  }
+
+  .user-modal .modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photos-grid img {
+    width: 80px;
+    height: 80px;
+  }
+}
+/* ======================
+   REVIEWS PAGE LAYOUT
+====================== */
+.reviews-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensures page takes full viewport */
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  color: #0f172a;
+}
+
+/* REVIEWS LIST */
+.reviews-page > .review-card,
+.reviews-page > p.loading {
+  margin-bottom: 16px;
+}
+
+/* ======================
+   PAGE CONTAINER
+====================== */
+.reviews-page, .profile-verification {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* full viewport height */
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  color: #0f172a;
+}
+
+/* Grid or list of items should grow */
+.reviews-list, .pv-grid {
+  flex-grow: 1;       /* pushes pagination to bottom */
+  display: grid;
+  gap: 16px;
+}
+
+/* ======================
+   REVIEWS SIMPLE PAGINATION
+====================== */
+.reviews-pagination {
+  display: flex;
+  justify-content: center; /* center buttons */
+  gap: 12px;               /* space between buttons */
+  margin-top: 20px;        /* space from content above */
+  font-family: "Inter", sans-serif;
+}
+
+.reviews-pagination button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #f0f1f7;
+  color: #0f172a;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reviews-pagination button:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.reviews-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reviews-pagination span {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #0f172a;
+}
+.reviews-pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

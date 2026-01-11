@@ -1,10 +1,8 @@
-
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
-/* ===============================
+/* -----------------------------
    GLOBAL
-================================ */
+------------------------------ */
 .users-page {
   padding: 28px 32px;
   font-family: "Inter", sans-serif;
@@ -14,24 +12,25 @@
   overflow-x: hidden;
 }
 
-/* ===============================
+/* -----------------------------
    HEADER
-================================ */
+------------------------------ */
 .users-header h2 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #111827;
 }
 
 .users-header p {
-  font-size: 13px;
+  font-size: 14px;
   color: #64748b;
   margin-top: 6px;
+  font-weight: 500;
 }
 
-/* ===============================
+/* -----------------------------
    FILTER BAR
-================================ */
+------------------------------ */
 .users-filters {
   display: grid;
   grid-template-columns: 2fr repeat(4, 1fr);
@@ -45,9 +44,10 @@
   padding: 0 14px;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
-  font-size: 13px;
+  font-size: 14px;
   background: #ffffff;
   transition: all 0.25s ease;
+  font-weight: 500;
 }
 
 .users-filters input:focus,
@@ -57,27 +57,15 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
 }
 
-/* ===============================
-   CARD
-================================ */
+/* -----------------------------
+   CARD / TABLE
+------------------------------ */
 .users-card {
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.users-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.15);
-}
-
-/* ===============================
-   TABLE (SCROLL SAFE)
-================================ */
-.users-card {
   overflow-x: auto;
+  margin-bottom: 16px;
 }
 
 table {
@@ -89,11 +77,10 @@ table {
 th {
   background: #f9fafb;
   padding: 14px 18px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #475569;
   text-align: left;
-  letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
@@ -113,9 +100,6 @@ tr:hover td {
   color: #64748b;
 }
 
-/* ===============================
-   STATUS BADGES
-================================ */
 .badge {
   padding: 4px 12px;
   border-radius: 999px;
@@ -134,9 +118,9 @@ tr:hover td {
   color: #475569;
 }
 
-/* ===============================
+/* -----------------------------
    PAGINATION
-================================ */
+------------------------------ */
 .pagination {
   margin: 22px 0 8px;
   display: flex;
@@ -162,9 +146,10 @@ tr:hover td {
   border-color: #3b82f6;
 }
 
-/* ===============================
+
+/* -----------------------------
    MODAL
-================================ */
+------------------------------ */
 .user-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -174,95 +159,257 @@ tr:hover td {
   justify-content: center;
   z-index: 50;
   padding: 16px;
+  overflow-y: auto;
 }
 
 .user-modal {
   background: #ffffff;
-  width: 520px;
-  max-width: 100%;
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.2);
+  width: 720px;
+  max-width: 95%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: modalFadeIn 0.25s ease-in-out;
+  font-family: "Inter", sans-serif;
+  color: #111827;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  padding: 0;
 }
 
+/* MODAL HEADER */
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 12px;
+  padding: 20px 24px;
+  flex-shrink: 0;
 }
 
 .modal-header h3 {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111827;
+  word-break: break-word;
 }
 
 .modal-header button {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 22px;
   cursor: pointer;
   color: #64748b;
+  transition: color 0.2s;
 }
 
 .modal-header button:hover {
   color: #1e293b;
 }
 
+/* MODAL BODY */
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-height: 120px;
+}
+
+/* GRID INFO */
 .modal-grid {
-  margin-top: 18px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  font-size: 13px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px 24px;
+  font-size: 15px;
   color: #475569;
 }
 
-/* ===============================
-   RESPONSIVE BREAKPOINTS
-================================ */
+.modal-grid div b {
+  display: inline-block;
+  min-width: 120px;
+  color: #1e293b;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+}
 
-/* Medium laptops (≤ 1200px) */
+/* -----------------------------
+   PHOTOS SECTION
+------------------------------ */
+.photos-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.photos-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+/* Horizontal scrolling photo gallery */
+.photos-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.photos-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.photos-grid::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 8px;
+}
+
+.photos-grid img {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.photos-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+}
+
+/* PHOTO CLICK EFFECT */
+.photos-grid img.active,
+.photos-grid img:focus {
+  transform: scale(1.3);
+  z-index: 10;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.4);
+  border-color: #3b82f6;
+  position: relative;
+}
+
+/* MODAL FOOTER */
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ANIMATION */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* -----------------------------
+   RESPONSIVE
+------------------------------ */
 @media (max-width: 1200px) {
-  .users-filters {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  .user-modal { width: 650px; }
+  .modal-grid div b { min-width: 100px; }
 }
 
-/* Small laptops / tablets */
 @media (max-width: 900px) {
-  .users-page {
-    padding: 20px;
-  }
-
-  .users-filters {
-    grid-template-columns: 1fr 1fr;
-  }
+  .user-modal { width: 540px; }
 }
 
-/* Tablets / mobile */
 @media (max-width: 768px) {
-  .users-filters {
-    grid-template-columns: 1fr;
-  }
+  .user-modal { width: 100%; max-height: 90vh; }
+  .modal-grid { grid-template-columns: 1fr; }
+}
 
-  .modal-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 480px) {
+  .modal-header h3 { font-size: 18px; }
+  .photos-grid img { width: 70px; height: 70px; }
+}
+/* ===============================
+   IMAGE LIGHTBOX (ABOVE MODAL)
+================================ */
+.pv-image-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;                 /* 🔥 FIX */
+}
 
-  table {
-    min-width: 700px;
+.pv-image-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 16px;
+}
+
+/* CLOSE BUTTON */
+.photo-lightbox .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 21000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-lightbox .close-btn:hover {
+  color: #3b82f6;
+}
+
+/* ---------------------
+   RESPONSIVE LIGHTBOX
+----------------------- */
+@media (max-width: 1200px) { /* laptops / smaller screens */
+  .photo-lightbox img {
+    max-width: 70%;
+    max-height: 70%;
   }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  .users-header h2 {
-    font-size: 20px;
+@media (max-width: 900px) { /* tablets */
+  .photo-lightbox img {
+    max-width: 85%;
+    max-height: 85%;
   }
+}
 
-  table {
-    min-width: 600px;
+@media (max-width: 768px) { /* mobile */
+  .photo-lightbox img {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  .photo-lightbox .close-btn {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
   }
 }

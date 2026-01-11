@@ -3,49 +3,49 @@
 /* ===============================
    PAGE
 ================================ */
-.reports-page {
+.reports-page,
+.photo-verification {
   padding: 24px 28px;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", sans-serif;
   background: #f5f7fb;
   color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
 }
 
 /* Title */
-.reports-page h2 {
-  font-size: 24px;
-  font-weight: 700;
+.reports-page h2,
+.photo-verification h2 {
+  font-size: 28px;
+  font-weight: 900;
   margin: 0;
+  margin-bottom: 22px;
 }
 
-.reports-page p {
-  font-size: 13px;
-  font-weight: 500;
+.reports-page p,
+.photo-verification p {
+  font-size: 20px;
+  font-weight: 700;
   color: #64748b;
   margin: 6px 0 20px;
 }
 
 /* ===============================
-   CARD
+   LIST / TABLE
 ================================ */
-.reports-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 16px 18px;
-  border: 1px solid #e5e7eb;
-  box-shadow:
-    0 6px 16px rgba(15, 23, 42, 0.06),
-    0 2px 6px rgba(15, 23, 42, 0.04);
+.reports-list,
+.pv-list {
+  flex-grow: 1;
+  overflow-x: auto;
+  margin-bottom: 20px;
 }
 
-/* ===============================
-   TABLE
-================================ */
 .reports-card table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* Header */
 .reports-card thead th {
   font-size: 11px;
   font-weight: 600;
@@ -58,16 +58,13 @@
   white-space: nowrap;
 }
 
-/* Body cells – REAL FIX */
 .reports-card tbody td {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 520;
   padding: 12px 14px;
   border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
   color: #0f172a;
-
-  /* IMPORTANT */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,13 +122,13 @@
 }
 
 /* ===============================
-   ACTIONS (FIXED)
+   ACTIONS
 ================================ */
-.actions {
+.actions,
+.actions-col {
   display: flex;
-  flex-wrap: wrap;       /* ✅ allows buttons to wrap */
+  flex-wrap: wrap;
   gap: 6px;
-  max-width: 100%;
 }
 
 .actions button {
@@ -141,31 +138,149 @@
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-
-  /* KEY FIX */
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-/* allow table cell to wrap actions */
 .reports-card tbody td:last-child {
-  white-space: normal;   /* overrides ellipsis */
+  white-space: normal; /* allow buttons to wrap */
 }
 
 /* ===============================
-   MODAL
+   MODAL BACKDROPS
 ================================ */
-.modal {
-  width: 360px;
-  max-width: 100%;
+.user-modal-backdrop,
+.pv-modal-backdrop,
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  z-index: 9999; /* always on top */
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* MODAL CONTAINERS */
+.modal,
+.user-modal,
+.pv-modal {
+  width: 420px;
+  max-width: 95%;
   background: #ffffff;
   border-radius: 12px;
   padding: 16px;
   border: 1px solid #e5e7eb;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10000; /* above backdrop */
+}
+
+/* MODAL HEADER */
+.modal-header,
+.pv-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.modal-header h3,
+.pv-modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-header button,
+.pv-modal-header button {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* TEXTAREA IN ACTION MODAL */
+.modal textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  margin: 12px 0;
+  resize: vertical;
+}
+
+/* MODAL ACTION BUTTONS */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.modal-actions button.confirm {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* PHOTOS GRID */
+.photos-section {
+  margin-top: 16px;
+}
+
+.photos-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.photos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.photos-grid img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.photos-grid img:hover {
+  transform: scale(1.05);
 }
 
 /* ===============================
-   EMPTY + LOADING
+   IMAGE LIGHTBOX
+================================ */
+.photo-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 16px;
+}
+
+/* ===============================
+   EMPTY + LOADING STATES
 ================================ */
 .empty-state,
 .page-loading {
@@ -175,28 +290,51 @@
   color: #64748b;
 }
 
+
 /* ===============================
-   RESPONSIVE (ONLY WHEN NEEDED)
+   EVIDENCE THUMB (TABLE SAFE)
+   (ADDED — NO EXISTING CSS TOUCHED)
 ================================ */
-
-/* Tablets */
-@media (max-width: 900px) {
-  .reports-card {
-    overflow-x: auto;
-  }
-
-  .reports-card table {
-    min-width: 720px;
-  }
+.evidence-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  .reports-page h2 {
-    font-size: 20px;
-  }
+.evidence-thumb:hover {
+  transform: scale(1.05);
+}
 
-  .reports-card table {
-    min-width: 640px;
+/* Prevent table row from expanding */
+.reports-card td img.evidence-thumb {
+  display: block;
+}
+
+/* ===============================
+   IMAGE LIGHTBOX FIX (CENTERED)
+   (USES YOUR EXISTING .photo-lightbox)
+================================ */
+.photo-lightbox {
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+}
+
+/* ===============================
+   MOBILE SAFETY (NO LAYOUT CHANGE)
+================================ */
+@media (max-width: 640px) {
+  .evidence-thumb {
+    width: 48px;
+    height: 48px;
   }
 }
