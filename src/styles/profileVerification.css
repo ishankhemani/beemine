@@ -1,99 +1,120 @@
-/* ===============================
-   GLOBAL PAGE
-================================ */
-.profile-verification {
-  padding: 24px 28px;
-  background: #f5f7fb;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  min-height: 100vh;
-}
+/* =================================================
+   PROFILE VERIFICATION GRID (ADMIN STYLE)
+================================================= */
 
-/* PAGE HEADER */
-.profile-verification h2 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 6px;
-}
-
-.profile-verification > p {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #64748b;
-  max-width: 600px;
-  margin-bottom: 22px;
-  line-height: 1.5;
-}
-
-/* ===============================
-   GRID
-================================ */
 .pv-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 320px);
+  gap: 18px;
+
+  max-width: 900px;
+  margin-top: 16px;
+
+  margin-left: 0;
+  margin-right: auto;
+
+  align-content: start;
 }
 
-/* ===============================
-   CARD
-================================ */
+
+
+/* =================================================
+   PROFILE VERIFICATION CARD – POLISHED ADMIN STYLE
+================================================= */
+
+/* =================================================
+   PROFILE VERIFICATION CARD – SLIGHTLY BIGGER
+================================================= */
+
+/* =================================================
+   PROFILE VERIFICATION CARD – FINAL POLISHED SIZE
+================================================= */
+
 .pv-card {
   background: #ffffff;
-  border-radius: 14px;
-  padding: 18px 18px 16px;
+  border-radius: 16px;              /* smoother corners */
+  padding: 16px 18px;               /* ⬆ better inner spacing */
   display: flex;
   flex-direction: column;
-  min-height: 180px;
+
   border: 1px solid #e5e7eb;
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+
+  min-height: 185px;                /* ⬆ more presence */
+  width: 100%;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .pv-card:hover {
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
   transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
 }
 
-/* CARD TEXT */
+/* =================================================
+   HIDE DOCUMENT IMAGE (IMPORTANT)
+================================================= */
+
+.pv-doc-preview {
+  display: none;
+}
+
 .pv-card h4 {
-  font-size: 16px;
+  font-size: 14.5px;
   font-weight: 600;
   color: #0f172a;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .pv-card p {
   font-size: 13px;
-  font-weight: 500;
   color: #475569;
   margin: 4px 0;
   line-height: 1.45;
 }
 
-.pv-card b {
-  font-weight: 600;
+
+.pv-card p b {
   color: #1e293b;
+  font-weight: 600;
 }
 
-/* ===============================
-   CARD BUTTON
-================================ */
+
+/* =================================================
+   VERIFY BUTTON (COMPACT)
+================================================= */
+
 .pv-card button {
   margin-top: auto;
-  width: 100%;
-  height: 38px;
-  border-radius: 8px;
+  height: 38px;                    /* ⬆ better tap size */
+  border-radius: 10px;
   border: none;
-  background: #2563eb;
+
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
   color: #ffffff;
-  font-size: 13px;
+
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .pv-card button:hover {
-  background: #1d4ed8;
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, #2563eb, #1d4ed8);
 }
+
+
+@media (max-width: 768px) {
+  .pv-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+}
+
+
 
 /* ===============================
    MODAL BACKDROP

@@ -36,7 +36,9 @@
   margin: 0;
   font-size: 20px;
   font-weight: 600;
+  color: #374151; /* slate-700 */
 }
+
 
 /* Subtitle */
 .login-card p {

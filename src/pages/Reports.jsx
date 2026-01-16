@@ -128,17 +128,22 @@ export default function Reports() {
                 <td>{r.details || "-"}</td>
 
                 <td>
-                  {r.evidence_url ? (
-                    <img
-                      src={r.evidence_url}
-                      className="evidence-thumb"
-                      alt="evidence"
-                      onClick={() => setEvidenceLightbox(r.evidence_url)}
-                    />
-                  ) : (
-                    "-"
-                  )}
-                </td>
+  {r.evidence_url ? (
+    r.evidence_url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) ? (
+      <img
+        src={r.evidence_url}
+        className="evidence-thumb"
+        alt="evidence"
+        onClick={() => setEvidenceLightbox(r.evidence_url)}
+      />
+    ) : (
+      <span className="evidence-text">{r.evidence_url}</span>
+    )
+  ) : (
+    "-"
+  )}
+</td>
+
 
                 <td>{new Date(r.created_at).toLocaleString()}</td>
 

@@ -93,27 +93,38 @@ export default function ProfileVerification() {
           VERIFICATION CARDS GRID
       ================================ */}
       <div className="pv-grid">
-        {list.map((item) => (
-          <div className="pv-card" key={item.verification_id}>
-            <h4
-              className="profile-link clickable"
-              onClick={() => openProfileModal(item.profile_id)}
-            >
-              {item.username}
-            </h4>
-
-            <p>
-              {item.city}, {item.state}
-            </p>
-
-            <p>
-              <b>Method:</b> {item.document_type}
-            </p>
-
-            <button onClick={() => setSelected(item)}>Verify</button>
-          </div>
-        ))}
+  {list.map((item) => (
+    <div className="pv-card" key={item.verification_id}>
+      {/* DOCUMENT PREVIEW */}
+      <div className="pv-doc-preview">
+        {item.document_url ? (
+          <img src={item.document_url} alt="Document" />
+        ) : (
+          <div className="pv-doc-placeholder">No Document</div>
+        )}
       </div>
+
+      {/* USER INFO */}
+      <h4
+        className="profile-link clickable"
+        onClick={() => openProfileModal(item.profile_id)}
+      >
+        {item.username}
+      </h4>
+
+      <p>
+        {item.city}, {item.state}
+      </p>
+
+      <p>
+        <b>Method:</b> {item.document_type}
+      </p>
+
+      <button onClick={() => setSelected(item)}>Verify</button>
+    </div>
+  ))}
+</div>
+
 
       {/* ===============================
           PAGINATION

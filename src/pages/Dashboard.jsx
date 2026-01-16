@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getDashboardStats } from "../api/dashboard.api";
 import "../styles/dashboard.css";
 
@@ -14,13 +15,17 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip);
 
+
+
+/* ------------------ DASHBOARD ------------------ */
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const [stats, setStats] = useState(null);
   const [rawGraph, setRawGraph] = useState({ labels: [], values: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /* Date range */
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
@@ -28,34 +33,28 @@ export default function Dashboard() {
     setLoading(true);
     getDashboardStats()
       .then((res) => {
-        const d = res.data; // ✅ unchanged (as in your original code)
+        const d = res.data;
 
         setStats({
-  total_users: d.users?.total_active ?? 0,
-  total_men: d.users?.men ?? 0,
-  total_women: d.users?.women ?? 0,
-
-  // ✅ CORRECT paths
-  daily_active_users: d.active_users?.daily ?? 0,
-  total_topup_amount: d.revenue?.total_topup ?? 0,
-
-  pending_verifications: d.verification?.pending_profiles ?? 0,
-  total_reports: d.reports?.pending ?? 0,
-  total_revenue: d.revenue?.platform_85_percent ?? 0,
-});
+          total_users: d.users?.total_active ?? 0,
+          total_men: d.users?.men ?? 0,
+          total_women: d.users?.women ?? 0,
+          daily_active_users: d.active_users?.daily ?? 0,
+          pending_verifications: d.verification?.pending_profiles ?? 0,
+          total_reports: d.reports?.pending ?? 0,
+          total_revenue: d.revenue?.platform_85_percent ?? 0,
+          total_topup_amount: d.revenue?.total_topup ?? 0,
+        });
 
         setRawGraph({
           labels: d.revenue?.graph?.labels || [],
           values: d.revenue?.graph?.values || [],
         });
       })
-      .catch((err) =>
-        setError(err?.message || "Failed to load dashboard data")
-      )
+      .catch(() => setError("Failed to load dashboard data"))
       .finally(() => setLoading(false));
   }, []);
 
-  /* Filter graph by date range */
   const graphData = useMemo(() => {
     if (!fromDate && !toDate) {
       return buildGraph(rawGraph.labels, rawGraph.values);
@@ -79,9 +78,7 @@ export default function Dashboard() {
     return buildGraph(filtered.labels, filtered.values);
   }, [rawGraph, fromDate, toDate]);
 
-  if (loading)
-    return <div className="loading-state">Loading dashboard data...</div>;
-
+  if (loading) return <div className="loading-state">Loading...</div>;
   if (error) return <div className="error-state">{error}</div>;
 
   const barOptions = {
@@ -90,51 +87,24 @@ export default function Dashboard() {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: "#111827",
-        titleColor: "#ffffff",
-        bodyColor: "#ffffff",
-        padding: 10,
-        displayColors: false,
         callbacks: {
           label: (ctx) => `₹${ctx.raw}`,
         },
       },
     },
     scales: {
-      x: {
-        grid: { display: false },
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 8,
-          color: "#6b7280",
-          font: { size: 11 },
-          maxRotation: 45,
-          minRotation: 45,
-        },
-      },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: "#e5e7eb",
-          borderDash: [4, 4],
-        },
-        ticks: {
-          color: "#6b7280",
-          font: { size: 12 },
-          callback: (value) => `₹${value}`,
-        },
-      },
+      x: { grid: { display: false } },
+      y: { beginAtZero: true },
     },
   };
 
   return (
     <div className="dashboard">
+      {/* HEADER */}
       <div className="dashboard-header">
         <div>
           <h2>Dashboard</h2>
-          <p className="dashboard-subtitle">
-            Overview of your platform's key metrics.
-          </p>
+          <p>Overview of your platform's key metrics.</p>
         </div>
 
         <div className="dashboard-actions">
@@ -152,31 +122,25 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* STATS */}
       <div className="stats-grid">
-        <Stat title="Total Users" value={stats.total_users} />
-        <Stat title="Total Men" value={stats.total_men} />
-        <Stat title="Total Women" value={stats.total_women} />
-        <Stat title="Daily Active Users" value={stats.daily_active_users} />
-        <Stat
-          title="Pending Verifications"
-          value={stats.pending_verifications}
-          danger
-        />
-        <Stat title="Total Reports" value={stats.total_reports} />
-        <Stat title="Total Revenue" value={`₹${stats.total_revenue}`} />
-        <Stat
-          title="Total Topup Amount"
-          value={`₹${stats.total_topup_amount}`}
-        />
+        <Stat title="Total Users" value={stats.total_users} clickable onClick={() => navigate("/users")} />
+        <Stat title="Total Men" value={stats.total_men} clickable onClick={() => navigate("/users?gender=men")} />
+        <Stat title="Total Women" value={stats.total_women} clickable onClick={() => navigate("/users?gender=women")} />
+        <Stat title="Daily Active Users" value={stats.daily_active_users} clickable onClick={() => navigate("/users?filter=active")} />
+        <Stat title="Pending Verifications" value={stats.pending_verifications} danger clickable onClick={() => navigate("/profile-verification")} />
+        <Stat title="Total Reports" value={stats.total_reports} clickable onClick={() => navigate("/reports")} />
+        <Stat title="Total Revenue" value={`₹${stats.total_revenue}`} clickable onClick={() => navigate("/revenue")} />
+        <Stat title="Total Topup Amount" value={`₹${stats.total_topup_amount}`} clickable onClick={() => navigate("/revenue?tab=topup")} />
       </div>
 
+      {/* GRAPH */}
       <div className="dashboard-graphs">
         <div className="graph-card large">
           <div className="graph-header">
             <h3>Revenue Trend</h3>
             <p>Daily platform revenue</p>
           </div>
-
           <div className="graph-body">
             <Bar data={graphData} options={barOptions} />
           </div>
@@ -185,6 +149,7 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
 /* Helpers */
 function buildGraph(labels, values) {
@@ -205,9 +170,15 @@ function buildGraph(labels, values) {
   };
 }
 
-function Stat({ title, value, danger }) {
+function Stat({ title, value, danger, clickable, onClick }) {
   return (
-    <div className={`stat-card ${danger ? "danger" : ""}`}>
+    <div
+      className={`stat-card ${danger ? "danger" : ""} ${
+        clickable ? "clickable" : ""
+      }`}
+      onClick={clickable ? onClick : undefined}
+      role={clickable ? "button" : undefined}
+    >
       <span>{title}</span>
       <h2>{value ?? "-"}</h2>
     </div>
